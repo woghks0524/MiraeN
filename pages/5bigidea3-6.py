@@ -86,9 +86,8 @@ with tab2:
         # 시도 횟수 및 점수 저장
         st.session_state['attempts'].append({"score": score, "attempt": st.session_state['selected_buttons'].copy()})
         st.write(f"점수: {score}점")
-
-    # 버튼 지우기 버튼
-    if st.button("버튼 지우기"):
+        
+        # 확인 후 선택된 버튼 상태 초기화
         st.session_state['selected_buttons'].clear()
         for key in st.session_state['button_states']:
             if key.startswith("ans-"):
@@ -113,4 +112,3 @@ with tab2:
 # 전체 페이지 스타일 조정
 st.sidebar.title("게임 설명")
 st.sidebar.write("이 게임은 사용자가 만든 문제를 풀며 강화학습의 기초 개념을 학습하는 게임입니다.")
-
