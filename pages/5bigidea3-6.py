@@ -87,14 +87,24 @@ with tab2:
         st.session_state['attempts'].append({"score": score, "attempt": st.session_state['selected_buttons'].copy()})
         st.write(f"점수: {score}점")
 
-    # 시도 기록 및 점수 표시
+    # 버튼 지우기 버튼
+    if st.button("버튼 지우기"):
+        st.session_state['selected_buttons'].clear()
+        for key in st.session_state['button_states']:
+            if key.startswith("ans-"):
+                st.session_state['button_states'][key] = False
+        st.experimental_rerun()  # 페이지 새로고침으로 버튼 초기화
+
+    # 점수와 시도 기록 구분을 위한 구분선 추가
+    st.write("---")  # 구분선 추가
     st.write("### 시도 기록")
     for idx, attempt in enumerate(st.session_state['attempts']):
         st.write(f"시도 {idx + 1}: 점수 {attempt['score']}점, 선택된 칸: {attempt['attempt']}")
 
     # 다시 도전하기 버튼
     if st.button("다시 도전하기"):
-        st.session_state['selected_buttons'].clear()
+        st.session_state['attempts'].clear()  # 시도 기록 초기화
+        st.session_state['selected_buttons'].clear()  # 선택된 버튼 초기화
         for key in st.session_state['button_states']:
             if key.startswith("ans-"):
                 st.session_state['button_states'][key] = False
@@ -103,3 +113,4 @@ with tab2:
 # 전체 페이지 스타일 조정
 st.sidebar.title("게임 설명")
 st.sidebar.write("이 게임은 사용자가 만든 문제를 풀며 강화학습의 기초 개념을 학습하는 게임입니다.")
+
