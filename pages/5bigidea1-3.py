@@ -3,8 +3,17 @@ from PIL import Image, ImageOps
 import numpy as np
 import pandas as pd
 
-# 이미지 업로드
-uploaded_file = st.file_uploader("이미지를 업로드하세요", type=["png", "jpg", "jpeg"])
+# 사이드바에 활동 설명 추가
+st.sidebar.title("활동 설명")
+st.sidebar.write("""
+이 활동은 사용자가 입력한 그림이 픽셀의 크기에 따라 어떻게 다르게 보일 수 있는지 살펴보는 활동입니다. 픽셀이 작을수록 실제 그림과 비슷하게 보이며, 실제로 픽셀은 굉장히 작아 픽셀로 만든 이미지가 인간의 눈에는 자연스럽게 연결된 이미지로 보이게 됩니다.
+- 흑백 이미지를 넣었을 때 더 효과적입니다.
+- '정사각형 크기 설정'을 통해 픽셀의 크기를 바꿀 수 있습니다.
+- '흑백 전환 임계값 설정'을 통해 흑백으로 칠해지는 기준을 바꿀 수 있습니다.
+""")
+
+# 이미지 업로드 및 설명 추가
+uploaded_file = st.file_uploader("이미지를 업로드하세요. (흑백 이미지를 넣었을 때 더 효과적입니다.)", type=["png", "jpg", "jpeg"])
 
 # 정사각형 크기 슬라이더
 square_size = st.slider("정사각형 크기 설정", min_value=5, max_value=100, value=20, step=5)
